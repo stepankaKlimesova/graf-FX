@@ -35,13 +35,13 @@ public class HelloController {
         inputString = inputString.replace("\n", " ").replace("\r", " ");
         wordCounter = inputString.split(" ");
 
-        for (int j = 0; j < wordCounter.length; j++) {
             for (int i = 0; i < inputString.length(); i++) {
                Character character = inputString.charAt(i);
                 if (charCounter.containsKey(character)) {
                     count = charCounter.get(character);
                     count = count + 1;
                     charCounter.put(character, count);
+                    charCounter.put(character, count/inputString.length()*100);
                 } else {
                     charCounter.put(character, 1);
                 }
