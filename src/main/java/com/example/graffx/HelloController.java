@@ -13,10 +13,12 @@ import java.util.Map;
 public class HelloController {
 
     static File file;
-    static String inputString;
+    static String inputStringChar;
+    static String inputStringWord;
     static int countSumWord;
     static int countSumChar;
-    static int count;
+    static double countChar;
+    static double countWord;
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) {
@@ -28,25 +30,28 @@ public class HelloController {
         System.out.println(ConvertFile.read(file));
 
         String[] wordCounter;
-        Map<String, Integer> wordMap = new HashMap<>();
+        Map<String, Double> wordMap = new HashMap<>();
 
-        Map<Character, Integer> charCounter = new HashMap<>();
-        inputString = ConvertFile.read(file);
-        inputString = inputString.replace("\n", " ").replace("\r", " ");
-        wordCounter = inputString.split(" ");
+        Map<Character, Double> charCounter = new HashMap<>();
+        inputStringChar = ConvertFile.read(file);
+        inputStringWord = ConvertFile.read(file);
+        inputStringWord = inputStringWord.replace("\n", " ").replace("\r", " ");
+        inputStringChar = inputStringChar.replace("\n", " ").replace("\r", " ").replaceAll("\\s+", "");
 
-        for (int i = 0; i < inputString.length(); i++) {
-            Character character = inputString.charAt(i);
+        wordCounter = inputStringWord.split(" ");
+
+        for (int i = 0; i < inputStringChar.length(); i++) {
+            Character character = inputStringChar.charAt(i);
             if (charCounter.containsKey(character)) {
-                count = charCounter.get(character) * inputString.length() / 100;
-                count = count + 1;
-                charCounter.put(character, count);
-                charCounter.put(character, count/inputString.length()*100);
+                countChar = (charCounter.get(character)) * inputStringChar.length() / 100;
+                countChar = countChar + 1;
+                charCounter.put(character, countChar);
+                charCounter.put(character, countChar / inputStringChar.length() * 100);
             } else {
-                charCounter.put(character,1.0);
+                countChar = 1.0 / inputStringChar.length() * 100;
+                charCounter.put(character, countChar);
             }
         }
-
 
         System.out.println("countSumChar " + countSumChar);
         System.out.println("charCounter " + charCounter);
@@ -54,15 +59,16 @@ public class HelloController {
         for (int i = 0; i < wordCounter.length; i++) {
             String word = wordCounter[i];
             if (wordMap.containsKey(word)) {
-                Integer count = wordMap.get(word);
-                count++;
-                wordMap.put(word, count);
+                countWord = (wordMap.get(word)) * wordCounter.length / 100;
+                countWord = countWord + 1;
+                wordMap.put(word, countWord);
+                wordMap.put(word, countWord / wordCounter.length * 100);
             } else {
-                wordMap.put(word, 1);
+                countWord = 1.0 / wordCounter.length * 100;
+                wordMap.put(word, countWord);
             }
+            countSumWord += countWord;
         }
-        countSumWord += count;
-        System.out.println("countSumWord " + countSumWord);
         System.out.println(wordMap);
     }
 }
