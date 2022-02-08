@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.File;
@@ -15,6 +16,8 @@ public class HelloController {
     static File file;
     static String inputStringChar;
     static String inputStringWord;
+    static String[] wordCounter;
+    static Map<String, Double> wordMap = new HashMap<>();
     static int countSumWord;
     static int countSumChar;
     static double countChar;
@@ -28,9 +31,6 @@ public class HelloController {
         file = fileChooser.showOpenDialog(window);
 
         System.out.println(ConvertFile.read(file));
-
-        String[] wordCounter;
-        Map<String, Double> wordMap = new HashMap<>();
 
         Map<Character, Double> charCounter = new HashMap<>();
         inputStringChar = ConvertFile.read(file);
@@ -70,5 +70,6 @@ public class HelloController {
             countSumWord += countWord;
         }
         System.out.println(wordMap);
+        GraphInit.graph(new Stage());
     }
 }
