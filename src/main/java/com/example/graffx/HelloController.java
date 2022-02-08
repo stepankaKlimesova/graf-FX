@@ -14,6 +14,9 @@ public class HelloController {
 
     static File file;
     static String inputString;
+    static int countSumWord;
+    static int countSumChar;
+    static int count;
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) {
@@ -32,17 +35,24 @@ public class HelloController {
         inputString = inputString.replace("\n", " ").replace("\r", " ");
         wordCounter = inputString.split(" ");
 
-        for (int i = 0; i < inputString.length(); i++) {
-            Character character = inputString.charAt(i);
-            if (charCounter.containsKey(character)) {
-                Integer count = charCounter.get(character);
-                count = count + 1;
-                charCounter.put(character, count);
-            } else {
-                charCounter.put(character, 1);
+        for (int j = 0; j < wordCounter.length; j++) {
+            for (int i = 0; i < inputString.length(); i++) {
+               Character character = inputString.charAt(i);
+                if (charCounter.containsKey(character)) {
+                    count = charCounter.get(character);
+                    count = count + 1;
+                    charCounter.put(character, count);
+                } else {
+                    charCounter.put(character, 1);
+                }
             }
+            countSumChar = (charCounter.get(inputString.charAt(j))/inputString.length())*100;
+            charCounter.put(inputString.charAt(j), countSumChar);
         }
-        System.out.println(charCounter);
+
+
+        System.out.println("countSumChar " + countSumChar);
+        System.out.println("charCounter " + charCounter);
 
         for (int i = 0; i < wordCounter.length; i++) {
             String word = wordCounter[i];
@@ -54,6 +64,8 @@ public class HelloController {
                 wordMap.put(word, 1);
             }
         }
+        countSumWord += count;
+        System.out.println("countSumWord " + countSumWord);
         System.out.println(wordMap);
     }
 }
