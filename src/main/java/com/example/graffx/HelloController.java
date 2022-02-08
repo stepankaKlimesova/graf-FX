@@ -35,19 +35,16 @@ public class HelloController {
         inputString = inputString.replace("\n", " ").replace("\r", " ");
         wordCounter = inputString.split(" ");
 
-            for (int i = 0; i < inputString.length(); i++) {
-               Character character = inputString.charAt(i);
-                if (charCounter.containsKey(character)) {
-                    count = charCounter.get(character);
-                    count = count + 1;
-                    charCounter.put(character, count);
-                    charCounter.put(character, count/inputString.length()*100);
-                } else {
-                    charCounter.put(character, 1);
-                }
+        for (int i = 0; i < inputString.length(); i++) {
+            Character character = inputString.charAt(i);
+            if (charCounter.containsKey(character)) {
+                count = charCounter.get(character) * inputString.length() / 100;
+                count = count + 1;
+                charCounter.put(character, count);
+                charCounter.put(character, count/inputString.length()*100);
+            } else {
+                charCounter.put(character,1.0);
             }
-            countSumChar = (charCounter.get(inputString.charAt(j))/inputString.length())*100;
-            charCounter.put(inputString.charAt(j), countSumChar);
         }
 
 
