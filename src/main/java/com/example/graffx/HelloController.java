@@ -29,7 +29,7 @@ public class HelloController {
 
         Map<Character, Integer> charCounter = new HashMap<>();
         inputString = ConvertFile.read(file);
-        inputString.replace();
+        inputString = inputString.replace("\n", " ").replace("\r", " ");
         wordCounter = inputString.split(" ");
 
         for (int i = 0; i < inputString.length(); i++) {
@@ -46,16 +46,14 @@ public class HelloController {
 
         for (int i = 0; i < wordCounter.length; i++) {
             String word = wordCounter[i];
-            if (wordMap.containsKey(word)){
+            if (wordMap.containsKey(word)) {
                 Integer count = wordMap.get(word);
-                count ++;
-                wordMap.put(word,count);
-            }else {
-                wordMap.put(word,1);
+                count++;
+                wordMap.put(word, count);
+            } else {
+                wordMap.put(word, 1);
             }
         }
         System.out.println(wordMap);
-
     }
-
 }
