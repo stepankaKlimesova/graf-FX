@@ -18,6 +18,7 @@ public class HelloController {
     static String inputStringWord;
     static String[] wordCounter;
     static Map<String, Double> wordMap = new HashMap<>();
+    static Map<Character, Double> charCounter = new HashMap<>();
     static int countSumWord;
     static int countSumChar;
     static double countChar;
@@ -31,8 +32,6 @@ public class HelloController {
         file = fileChooser.showOpenDialog(window);
 
         System.out.println(ConvertFile.read(file));
-
-        Map<Character, Double> charCounter = new HashMap<>();
         inputStringChar = ConvertFile.read(file);
         inputStringWord = ConvertFile.read(file);
         inputStringWord = inputStringWord.replace("\n", " ").replace("\r", " ");
@@ -53,8 +52,8 @@ public class HelloController {
             }
         }
 
-        System.out.println("countSumChar " + countSumChar);
-        System.out.println("charCounter " + charCounter);
+        //System.out.println("countSumChar " + countSumChar);
+        //System.out.println("charCounter " + charCounter);
 
         for (int i = 0; i < wordCounter.length; i++) {
             String word = wordCounter[i];
